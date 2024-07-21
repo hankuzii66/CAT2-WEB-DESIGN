@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payroll Calculator</title>
+<style>
+    body { font-family: Arial, sans-serif; }
+    .container { width: 300px; margin: auto; padding: 20px; border: 1px solid #ccc; }
+    label, input, button { display: block; margin-top: 10px; }
+    label { margin-bottom: 5px; }
+    input, button { width: 100%; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Payroll Calculator</h2>
+    <label for="name">Employee Name:</label>
+    <input type="text" id="name">
+    
+    <label for="hours">Hours Worked:</label>
+    <input type="number" id="hours" min="0">
+    
+    <label for="rate">Rate per Hour ($):</label>
+    <input type="number" id="rate" min="0">
+    
+    <button onclick="calculatePay()">Calculate Pay</button>
+    
+    <h3>Results:</h3>
+    <div id="basicPay">Basic Pay: $0</div>
+    <div id="taxAmount">Tax Amount: $0</div>
+    <div id="netPay">Net Pay: $0</div>
+</div>
+
+<script>
+function calculatePay() {
+    const name = document.getElementById('name').value;
+    const hours = parseFloat(document.getElementById('hours').value);
+    const rate = parseFloat(document.getElementById('rate').value);
+    
+    const basicPay = hours * rate;
+    let tax = 0;
+
+    if (basicPay > 50000) {
+        tax = basicPay * 0.20;
+    } else if (basicPay >= 20000 && basicPay <= 50000) {
+        tax = basicPay * 0.10;
+    }
+
+    const netPay = basicPay - tax;
+    
+    document.getElementById('basicPay').textContent = `Basic Pay: $${basicPay.toFixed(2)}`;
+    document.getElementById('taxAmount').textContent = `Tax Amount: $${tax.toFixed(2)}`;
+    document.getElementById('netPay').textContent = `Net Pay: $${netPay.toFixed(2)}`;
+}
+</script>
+</body>
+</html>
